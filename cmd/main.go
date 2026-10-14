@@ -19,6 +19,8 @@ func main() {
 	bookingHandler := booking.NewHandler(svc)
 
 	mux.HandleFunc("GET /movies/{movieID}/bookings", bookingHandler.ListBookedSeats)
+	mux.HandleFunc("POST /movies/{movieID}/seats/{seatID}/hold", bookingHandler.HoldSeat)
+
 
 	mux.Handle("GET /", http.FileServer(http.Dir("static")))
 

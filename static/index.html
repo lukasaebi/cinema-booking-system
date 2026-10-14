@@ -434,7 +434,7 @@
 
         function fetchSeats() {
           if (!selectedMovie) return;
-          api("GET", "/movies/" + selectedMovie.id + "/seats").then(
+          api("GET", "/movies/" + selectedMovie.id + "/bookings").then(
             function (seats) {
               renderGrid(seats);
             },

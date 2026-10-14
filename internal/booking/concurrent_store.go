@@ -13,15 +13,15 @@ func NewConcurrentStore() *ConcurrentStore {
 	}
 }
 
-func (s *ConcurrentStore) Book(b Booking) error {
+func (s *ConcurrentStore) Book(b Booking) (Booking, error) {
 	s.Lock() // blocks everyone
 	defer s.Unlock()
 
 	if _, exists := s.bookings[b.SeatID]; exists {
-		return ErrSeatAlreadyBooked
+		return Booking{}, ErrSeatAlreadyBooked
 	}
 	s.bookings[b.SeatID] = b
-	return nil
+	return s.bookings[b.SeatID], nil
 }
 
 func (s *ConcurrentStore) ListBookings(movieID string) []Booking {
